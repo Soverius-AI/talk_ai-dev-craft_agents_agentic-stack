@@ -1,0 +1,22 @@
+[
+  {
+    "query": "The cold room warms up when staff keep walking in and out. What does the manual suggest?",
+    "entry": "2.6"
+  },
+  {
+    "query": "Warm air keeps getting into the refrigerated room during deliveries. What should we check?",
+    "entry": "2.6"
+  },
+  {
+    "query": "What should we check around the doorway when the cold room stays too warm?",
+    "entry": "2.6"
+  },
+  {
+    "query": "The room is warm and the evaporator is covered in ice. What might help?",
+    "entry": "2.4"
+  },
+  {
+    "query": "The coil still has frost after the defrost cycle has ended. Could it be too short?",
+    "entry": "4.4"
+  }
+]

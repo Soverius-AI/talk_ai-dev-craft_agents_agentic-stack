@@ -1,3 +1,17 @@
+# AI DevCraft · Unit 4: Browser-local RAG
+
+Branch `ai-devcraft/04-browser-rag` builds on branch 03 and adds the standalone browser manual assistant. Start with the [Unit 4 instructions](apps/browser-rag/README.md).
+
+```sh
+pnpm install --frozen-lockfile
+pnpm build:rag
+pnpm preview:rag
+```
+
+Open [localhost:4400](http://localhost:4400), prepare both local models while online, and rehearse before disconnecting. Presenter notes are on `ai-devcraft/00-start`.
+
+---
+
 # AI DevCraft: incident-management demos
 
 Current checkpoint: **chapter 3**, `ai-devcraft/03-agentic-ui`.

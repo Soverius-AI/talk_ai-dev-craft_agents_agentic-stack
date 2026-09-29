@@ -14,7 +14,12 @@
     "dev:backend": "pnpm --filter @packt-workshop/contracts build && pnpm --filter @packt-workshop/facility-service build && pnpm --parallel --filter @packt-workshop/facility-service --filter @packt-workshop/agent-service dev",
     "dev:agent": "pnpm --filter @packt-workshop/agent-service dev",
     "dev:angular": "pnpm --filter @packt-workshop/contracts build && pnpm --filter @packt-workshop/facility-service build && pnpm --parallel --filter @packt-workshop/facility-service --filter @packt-workshop/agent-service --filter angular-host dev",
-    "reset:demo": "pnpm --filter @packt-workshop/contracts build && pnpm --filter @packt-workshop/facility-service build && pnpm --filter @packt-workshop/facility-service reset:demo"
+    "reset:demo": "pnpm --filter @packt-workshop/contracts build && pnpm --filter @packt-workshop/facility-service build && pnpm --filter @packt-workshop/facility-service reset:demo",
+    "dev:rag": "pnpm --filter browser-rag dev",
+    "build:rag": "pnpm --filter browser-rag build",
+    "preview:rag": "pnpm --filter browser-rag preview",
+    "index:rag": "pnpm --filter browser-rag build:index",
+    "verify:rag": "pnpm --filter browser-rag verify:recall"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",

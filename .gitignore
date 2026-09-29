@@ -11,3 +11,6 @@ coverage/
 apps/facility-service/**/data/
 .mastra/
 apps/agent-service/**/data/
+
+apps/browser-rag/node_modules/
+apps/browser-rag/.cache/

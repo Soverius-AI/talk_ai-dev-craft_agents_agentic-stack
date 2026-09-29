@@ -1,0 +1,16 @@
+{
+  // The pipeline runs on Node (via `node pipeline/*.ts`, native type stripping),
+  // not in the browser — so it needs Node module resolution, Node types, and
+  // permission to import sibling files with their `.ts` extension.
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "types": ["node"],
+    "lib": ["ES2023"]
+  },
+  "include": ["**/*.ts"],
+  "exclude": []
+}

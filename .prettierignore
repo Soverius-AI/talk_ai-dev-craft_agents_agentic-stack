@@ -3,3 +3,4 @@ dist
 coverage
 .angular
 pnpm-lock.yaml
+apps/browser-rag/public/rag-index.json
