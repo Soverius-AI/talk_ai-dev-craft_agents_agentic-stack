@@ -1,10 +1,12 @@
+import { DecimalPipe } from '@angular/common';
+import { EmbeddingVector } from './embedding-vector';
 import { Component, inject, signal } from '@angular/core';
 import { FormField, form, readonly } from '@angular/forms/signals';
 import { ManualStore } from '../data/manual-store';
 
 @Component({
   selector: 'app-manual-assistant',
-  imports: [FormField],
+  imports: [FormField, DecimalPipe, EmbeddingVector],
   host: { '(window:online)': 'online.set(true)', '(window:offline)': 'online.set(false)' },
   template: `
     <header>
@@ -96,13 +98,31 @@ import { ManualStore } from '../data/manual-store';
         <section class="panel" aria-labelledby="evidence-title">
           <p class="eyebrow">01 / RETRIEVE</p>
           <h2 id="evidence-title">Manual passages</h2>
+          @if (store.queryEmbedding(); as query) {
+            <p class="vector-hint">
+              E5 · 768 dimensions. Higher cosine similarity means a closer match, not a confidence
+              percentage.
+            </p>
+            <app-embedding-vector
+              label="Question vector"
+              [vector]="query.vector"
+              [text]="query.question"
+            />
+          }
           @for (hit of store.hits(); track hit.chunk.id; let i = $index) {
             <article>
               <div class="source">
                 <strong>{{ hit.chunk.sectionPath }}</strong
                 ><span>#{{ i + 1 }}</span>
               </div>
+              <p class="similarity">
+                Cosine similarity: <strong>{{ hit.score | number: '1.4-4' }}</strong>
+              </p>
               <p>{{ hit.chunk.content }}</p>
+              <app-embedding-vector
+                [label]="'Passage vector · result ' + (i + 1)"
+                [vector]="hit.embedding"
+              />
               <a [href]="hit.chunk.url" target="_blank" rel="noopener"
                 >Original manual · page 6 ↗</a
               >
@@ -346,6 +366,12 @@ import { ManualStore } from '../data/manual-store';
     a {
       color: var(--accent);
       font-size: 12px;
+    }
+    .vector-hint,
+    .similarity {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
     }
     .empty {
       color: var(--muted);

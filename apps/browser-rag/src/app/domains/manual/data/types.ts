@@ -24,6 +24,7 @@ export interface RagIndex {
 
 export interface Retrieved {
   chunk: Chunk;
+  embedding: number[];
   score: number;
 }
 

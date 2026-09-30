@@ -22,6 +22,7 @@ export class ManualStore {
   readonly progress = signal<number | null>(null);
   readonly answer = signal('');
   readonly hits = signal<Retrieved[]>([]);
+  readonly queryEmbedding = signal<{ question: string; vector: number[] } | null>(null);
   readonly context = signal('');
   readonly useManual = signal(true);
   readonly busy = computed(() => this.loading() || this.searching() || this.generating());
@@ -47,6 +48,7 @@ export class ManualStore {
     this.answer.set('');
     this.context.set('');
     this.hits.set([]);
+    this.queryEmbedding.set(null);
     this.error.set('');
     this.searching.set(true);
     try {
@@ -75,6 +77,7 @@ export class ManualStore {
     this.answer.set('');
     this.context.set('');
     this.hits.set([]);
+    this.queryEmbedding.set(null);
     this.error.set('');
     try {
       const hits = await this.retrieve(question);
@@ -114,7 +117,9 @@ export class ManualStore {
   private async retrieve(question: string): Promise<Retrieved[]> {
     this.status.set('Embedding the question · searching the local manual');
     const vector = await this.embeddings.embed(question);
-    return this.db.search(vector, 3);
+    const hits = await this.db.search(vector, 3);
+    this.queryEmbedding.set({ question, vector });
+    return hits;
   }
 
   private fail(error: unknown): void {

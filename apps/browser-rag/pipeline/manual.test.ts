@@ -26,7 +26,13 @@ test('shipped vectors match the current corpus and E5 dimensions', () => {
 test('retrieved evidence carries its page and entry into the generation prompt', () => {
   const chunk = chunks.find((chunk) => chunk.documentId === '2.6');
   assert.ok(chunk);
-  const input = buildContext('What should I check?', [{ chunk, score: 0.8 }]);
+  const input = buildContext('What should I check?', [
+    {
+      chunk,
+      embedding: index.chunks.find((item: { id: string }) => item.id === chunk.id).embedding,
+      score: 0.8,
+    },
+  ]);
   assert.match(input.prompt, /p\. 6 · entry 2\.6/);
   assert.match(input.prompt, /door seals/);
   assert.match(input.system, /not a diagnosis/);

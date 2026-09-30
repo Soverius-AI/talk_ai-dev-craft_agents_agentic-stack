@@ -21,6 +21,7 @@ interface ChunkRow {
   content: string;
   token_count: number;
   similarity: number;
+  embedding: string;
 }
 
 let db: PGlite | null = null;
@@ -174,7 +175,7 @@ async function search(queryVec: number[], topK: number): Promise<Retrieved[]> {
   const emb = `[${queryVec.join(',')}]`;
   const { rows } = await db.query<ChunkRow>(
     `SELECT id, document_id, title, url, section_id, parent_section_id,
-            section_path, depth, position, content, token_count,
+            section_path, depth, position, content, token_count, embedding::text AS embedding,
             1 - (embedding <=> $1::vector) AS similarity
        FROM chunks
       ORDER BY embedding <=> $1::vector
@@ -195,6 +196,7 @@ async function search(queryVec: number[], topK: number): Promise<Retrieved[]> {
       content: r.content,
       tokenCount: r.token_count,
     },
+    embedding: JSON.parse(r.embedding) as number[],
     score: Number(r.similarity),
   }));
 }
