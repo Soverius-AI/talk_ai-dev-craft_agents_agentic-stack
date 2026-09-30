@@ -5,9 +5,6 @@ import { Component, computed, input } from '@angular/core';
   template: `
     <details>
       <summary>{{ label() }} · {{ vector().length }} values</summary>
-      @if (text()) {
-        <p>{{ text() }}</p>
-      }
       <p class="hint">First 8 dimensions · rounded for display</p>
       <code>{{ preview() }}</code>
       <details class="full">
@@ -64,7 +61,6 @@ import { Component, computed, input } from '@angular/core';
 export class EmbeddingVector {
   readonly label = input.required<string>();
   readonly vector = input.required<number[]>();
-  readonly text = input('');
   readonly preview = computed(
     () =>
       '[' +

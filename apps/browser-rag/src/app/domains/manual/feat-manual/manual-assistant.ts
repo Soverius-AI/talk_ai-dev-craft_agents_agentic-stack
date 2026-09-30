@@ -98,16 +98,11 @@ import { ManualStore } from '../data/manual-store';
         <section class="panel" aria-labelledby="evidence-title">
           <p class="eyebrow">01 / RETRIEVE</p>
           <h2 id="evidence-title">Manual passages</h2>
-          @if (store.queryEmbedding(); as query) {
+          @if (store.hits().length) {
             <p class="vector-hint">
               E5 · 768 dimensions. Higher cosine similarity means a closer match, not a confidence
               percentage.
             </p>
-            <app-embedding-vector
-              label="Question vector"
-              [vector]="query.vector"
-              [text]="query.question"
-            />
           }
           @for (hit of store.hits(); track hit.chunk.id; let i = $index) {
             <article>
